@@ -1,36 +1,72 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Juke {
-    static boolean isDone = false;
-    static String[] list = new String[100];
+    static boolean isCompleted = false;
+    static Task[] list = new Task[100];
     static int currentListPosition = 0;
 
     static void endProgram() {
-        isDone = true;
+        isCompleted = true;
         System.out.println("Bye! See you again :)");
     }
 
     static void listTask() {
-        for (int i = 0; i < list.length && list[i] != null; i++) {
-            System.out.println((i + 1) + ". " + list[i]);
+        for (int i = 0; i < currentListPosition; i++) {
+            System.out.print((i + 1));
+
+            if (list[i].isDone()) {
+                System.out.println(".[X] " + list[i].getTask());
+            } else {
+                System.out.println(".[ ] " + list[i].getTask());
+            }
         }
     }
 
     static void addTask(String text) {
-        list[currentListPosition] = text;
+        list[currentListPosition] = new Task(text);
+        list[currentListPosition].setTask(text);
         currentListPosition++;
         System.out.println("added: " + text);
     }
 
+    static void markTask(String text) {
+        int spaceIndex = text.indexOf(" ");
+        String taskNumber = text.substring(spaceIndex + 1);
+        int taskIndex = Integer.parseInt(taskNumber) - 1;
+        list[taskIndex].markTask();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("[X] " + list[taskIndex].getTask());
+    }
+
+    static void unmarkTask(String text) {
+        int spaceIndex = text.indexOf(" ");
+        String taskNumber = text.substring(spaceIndex + 1);
+        int taskIndex = Integer.parseInt(taskNumber) - 1;
+        list[taskIndex].unmarkTask();
+        System.out.println("Nice! I've marked this task as uncompleted:");
+        System.out.println("[ ] " + list[taskIndex].getTask());
+    }
+
+
     static void replyText(String text) {
         System.out.println("---------------------------------------------------");
 
-        if (text.equals("bye")) {
+        switch (text) {
+        case "bye":
             endProgram();
-        } else if (text.equals("list")) {
+            break;
+        case "list":
             listTask();
-        } else {
-            addTask(text);
+            break;
+        default:
+            if (text.startsWith("mark")) {
+                markTask(text);
+            } else if (text.startsWith("unmark")) {
+                unmarkTask(text);
+            } else {
+                addTask(text);
+            }
         }
 
         System.out.println("---------------------------------------------------");
@@ -45,7 +81,7 @@ public class Juke {
         Scanner input = new Scanner(System.in);
         String text;
 
-        while (!isDone) {
+        while (!isCompleted) {
             text = input.nextLine();
             replyText(text);
         }
