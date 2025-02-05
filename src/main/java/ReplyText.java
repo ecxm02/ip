@@ -6,28 +6,39 @@ public class ReplyText {
     public ReplyText(String textInput) {
         this.textInput = textInput;
         ParseText cleaner = new ParseText(textInput);
-        respondToText(cleaner.getParsedText(), cleaner.getTaskIndex());
+        respondToText(cleaner.getInputCommand(), cleaner.getTaskName(), cleaner.getTaskIndex(),
+                cleaner.getDeadline(), cleaner.getFrom(), cleaner.getTo());
     }
 
     //uses a switch and if else statements to execute appropriate methods for the input
-    public void respondToText(String parsedText, int taskIndex) {
+    public void respondToText(String inputCommand, String taskName, int taskIndex,
+                              String deadline, String from, String to) {
         System.out.println(Constants.LINE_BREAK);
 
-        switch (parsedText) {
+        switch (inputCommand) {
         case "bye":
             Juke.endProgram();
             break;
         case "list":
             taskList.listTask();
             break;
+        case "todo":
+            taskList.addTodo(taskName);
+            break;
+        case "deadline":
+            taskList.addDeadline(taskName, deadline);
+            break;
+        case "event":
+            taskList.addEvent(taskName, from, to);
+            break;
+        case "mark":
+            taskList.markTask(taskIndex);
+            break;
+        case "unmark":
+            taskList.unmarkTask(taskIndex);
+            break;
         default:
-            if (parsedText.equals("mark")) {
-                taskList.markTask(taskIndex);
-            } else if (parsedText.equals("unmark")) {
-                taskList.unmarkTask(taskIndex);
-            } else {
-                taskList.addTask(parsedText);
-            }
+            System.out.println("Invalid command, Use: [todo], [deadline], [event], [list], [mark], [unmark] ");
         }
 
         System.out.println(Constants.LINE_BREAK);

@@ -1,18 +1,18 @@
 public class Task {
-    protected String task; //actual content of task
+    protected String taskName; //actual content of task
     protected boolean isDone; //boolean flag to check if its completed or uncompleted
 
-    public Task(String description) {
-        this.task = null;
+    public Task(String taskName) {
+        this.taskName = taskName;
         isDone = false;
     }
 
-    public String getTask() {
-        return task;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setTask(String text) {
-        this.task = text;
+    public String getTaskType() {
+        return "X";
     }
 
     public void markTask() {
