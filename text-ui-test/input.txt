@@ -1,0 +1,9 @@
+hello
+todo 1
+deadline 2 /by 3pm
+event 4 /from 5pm /to 6pm
+list
+mark 2
+list
+unmark 2
+bye
