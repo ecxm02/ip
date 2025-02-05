@@ -3,12 +3,16 @@ public class ParseText {
     private String inputCommand;
     private String taskName;
     private int taskIndex = -1;
+    private int spaceIndex = -1;
+    private int slashIndex = -1;
     private String deadline;
     private String from;
     private String to;
 
     public ParseText(String textInput) {
         this.textInput = textInput;
+        spaceIndex = textInput.indexOf(" ");
+        slashIndex = textInput.indexOf("/", spaceIndex + Constants.EMPTY_PAD);
         textCleanup();
     }
 
@@ -21,27 +25,22 @@ public class ParseText {
         }
 
         else if (textInput.startsWith("deadline")) {
-            int spaceIndex = textInput.indexOf(" ");
             inputCommand = textInput.substring(0, spaceIndex);
-            int slashIndex = textInput.indexOf("/", spaceIndex + 1);
-            taskName = textInput.substring(spaceIndex + 1, slashIndex - 1);
-            deadline = textInput.substring(slashIndex + 4);
+            taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
+            deadline = textInput.substring(slashIndex + Constants.BY_PAD);
         }
 
         else if (textInput.startsWith("event")) {
-            int spaceIndex = textInput.indexOf(" ");
             inputCommand = textInput.substring(0, spaceIndex);
-            int slashIndex = textInput.indexOf("/", spaceIndex + 1);
-            taskName = textInput.substring(spaceIndex + 1, slashIndex - 1);
-            int slashIndex2 = textInput.indexOf("/", slashIndex + 1);
-            from = textInput.substring(slashIndex + 6, slashIndex2 - 1);
-            to = textInput.substring(slashIndex2 + 4);
+            taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
+            int slashIndex2 = textInput.indexOf("/", slashIndex + Constants.EMPTY_PAD);
+            from = textInput.substring(slashIndex + Constants.FROM_PAD, slashIndex2 - Constants.EMPTY_PAD);
+            to = textInput.substring(slashIndex2 + Constants.TO_PAD);
         }
 
         else if (textInput.startsWith("todo")) {
-            int spaceIndex = textInput.indexOf(" ");
             inputCommand = textInput.substring(0, spaceIndex);
-            taskName = textInput.substring(spaceIndex + 1);
+            taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD);
         }
 
         else {

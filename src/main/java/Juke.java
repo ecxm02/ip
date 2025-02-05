@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class Juke {
     private static boolean isCompleted = false; //a master flag so that main knows when to end the program
 
-    public static void endProgram() { //sets the isCompleted flag to true so that the loop ends, also prints end message
+    //sets the isCompleted flag to true so that the loop ends, also prints end message
+    public static void endProgram() {
         isCompleted = true;
         System.out.println("Bye! See you again :)");
     }
