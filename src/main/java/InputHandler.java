@@ -1,18 +1,18 @@
-public class ReplyText {
-    private static TaskManager taskList = new TaskManager();
-    private String textInput;
+public class InputHandler {
+    private static String textInput;
 
+    private InputHandler() {
+    }
 
-    public ReplyText(String textInput) {
-        this.textInput = textInput;
-        ParseText cleaner = new ParseText(textInput);
-        respondToText(cleaner.getInputCommand(), cleaner.getTaskName(), cleaner.getTaskIndex(),
-                cleaner.getDeadline(), cleaner.getFrom(), cleaner.getTo());
+    public static void replyText(TaskManager taskList, String textInput) {
+        Parser.cleanText(textInput);
+        respondToText(taskList, Parser.getInputCommand(), Parser.getTaskName(), Parser.getTaskIndex(),
+                Parser.getDeadline(), Parser.getFrom(), Parser.getTo());
     }
 
     //uses a switch and if else statements to execute appropriate methods for the input
-    public void respondToText(String inputCommand, String taskName, int taskIndex,
-                              String deadline, String from, String to) {
+    public static void respondToText(TaskManager taskList, String inputCommand, String taskName, int taskIndex,
+                                     String deadline, String from, String to) {
         System.out.println(Constants.LINE_BREAK);
 
         switch (inputCommand) {

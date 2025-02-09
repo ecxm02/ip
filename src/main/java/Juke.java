@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class Juke {
-    private static boolean isCompleted = false; //a master flag so that main knows when to end the program
+    private static boolean isCompleted = false;//a master flag so that main knows when to end the program
+    private static TaskManager taskList = new TaskManager();
 
-    //sets the isCompleted flag to true so that the loop ends, also prints end message
     public static void endProgram() {
+        //sets the isCompleted flag to true so that the loop ends, also prints end message
         isCompleted = true;
         System.out.println("Bye! See you again :)");
     }
@@ -16,7 +17,7 @@ public class Juke {
 
         while (!isCompleted) {
             text = input.nextLine();
-            ReplyText current = new ReplyText(text);
+            InputHandler.replyText(taskList,text);
         }
         input.close();
     }

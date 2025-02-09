@@ -1,4 +1,7 @@
 public class Constants {
+    private Constants() {
+    }
+
     public static final String LINE_BREAK = "---------------------------------------------------";
     public static final int LIST_SIZE = 100;
     public static final int EMPTY_PAD = 1;
