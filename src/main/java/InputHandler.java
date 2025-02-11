@@ -4,7 +4,7 @@ public class InputHandler {
     private InputHandler() {
     }
 
-    public static void replyText(TaskManager taskList, String textInput) {
+    public static void readText(TaskManager taskList, String textInput) {
         Parser.cleanText(textInput);
         respondToText(taskList, Parser.getInputCommand(), Parser.getTaskName(), Parser.getTaskIndex(),
                 Parser.getDeadline(), Parser.getFrom(), Parser.getTo());
@@ -37,8 +37,6 @@ public class InputHandler {
         case "unmark":
             taskList.unmarkTask(taskIndex);
             break;
-        default:
-            System.out.println("Invalid command, Use: [todo], [deadline], [event], [list], [mark], [unmark] ");
         }
 
         System.out.println(Constants.LINE_BREAK);

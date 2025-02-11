@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String taskName; //actual content of task
     protected boolean isDone; //boolean flag to check if its completed or uncompleted
 
@@ -11,9 +11,7 @@ public class Task {
         return taskName;
     }
 
-    public String getTaskType() {
-        return "X";
-    }
+    public abstract String getTaskType();
 
     public void markTask() {
         isDone = true;

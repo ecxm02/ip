@@ -17,7 +17,7 @@ public class Juke {
 
         while (!isCompleted) {
             text = input.nextLine();
-            InputHandler.replyText(taskList,text);
+            InputHandler.readText(taskList,text);
         }
         input.close();
     }
