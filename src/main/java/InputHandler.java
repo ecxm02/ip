@@ -37,8 +37,6 @@ public class InputHandler {
         case "unmark":
             taskList.unmarkTask(taskIndex);
             break;
-        default:
-            System.out.println("Invalid command, Use: [todo], [deadline], [event], [list], [mark], [unmark] ");
         }
 
         System.out.println(Constants.LINE_BREAK);
