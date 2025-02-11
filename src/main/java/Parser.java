@@ -13,6 +13,7 @@ public class Parser {
     }
 
     public static void cleanText(String text) {
+        resetVariables();
         textInput = text;
         spaceIndex = textInput.indexOf(" ");
         slashIndex = textInput.indexOf("/", spaceIndex + Constants.EMPTY_PAD);
@@ -57,6 +58,17 @@ public class Parser {
         String taskNumber = words[1];
         taskIndex = Integer.parseInt(taskNumber) - 1;
         inputCommand = words[0];
+    }
+
+    private static void resetVariables() {
+        inputCommand = null;
+        taskName = null;
+        taskIndex = -1;
+        spaceIndex = -1;
+        slashIndex = -1;
+        deadline = null;
+        from = null;
+        to = null;
     }
 
     public static String getInputCommand() {
