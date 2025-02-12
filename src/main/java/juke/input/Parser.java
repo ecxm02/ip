@@ -1,5 +1,6 @@
 package juke.input;
 
+import juke.exception.ParserException;
 import juke.main.Constants;
 
 public class Parser {
