@@ -10,7 +10,7 @@ public class InputHandler {
                 Parser.getDeadline(), Parser.getFrom(), Parser.getTo());
     }
 
-    //uses a switch and if else statements to execute appropriate methods for the input
+    //uses a switch to execute appropriate methods for the input
     public static void respondToText(TaskManager taskList, String inputCommand, String taskName, int taskIndex,
                                      String deadline, String from, String to) {
         System.out.println(Constants.LINE_BREAK);

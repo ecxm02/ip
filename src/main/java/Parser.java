@@ -2,6 +2,7 @@ public class Parser {
     private static String textInput;
     private static String inputCommand = "invalid";
     private static String taskName;
+    private static String taskNumber;
     private static int taskIndex = -1;
     private static int spaceIndex = -1;
     private static int slashIndex = -1;
@@ -22,48 +23,68 @@ public class Parser {
         slashIndex2 = textInput.indexOf("/", slashIndex + Constants.EMPTY_PAD);
 
         if (textInput.startsWith("mark") || textInput.startsWith("unmark")) {
-            cleanUpMark();
+            try {
+                cleanUpMark();
+            } catch (Exception e) {
+                inputCommand = "invalid";
+            }
         } else if (textInput.startsWith("todo")) {
-            cleanUpTodo();
+            try {
+                cleanUpTodo();
+            } catch (Exception e) {
+                inputCommand = "invalid";
+            }
         } else if (textInput.startsWith("deadline")) {
-            cleanUpDeadline();
+            try {
+                cleanUpDeadline();
+            } catch (Exception e) {
+                inputCommand = "invalid";
+            }
         } else if (textInput.startsWith("event")) {
-            cleanUpEvent();
+            try {
+                cleanUpEvent();
+            } catch (Exception e) {
+                inputCommand = "invalid";
+            }
+        } else if (textInput.startsWith("list")) {
+            inputCommand = "list";
+        } else if (textInput.startsWith("bye")) {
+            inputCommand = "bye";
         } else {
             System.out.println("Invalid command, Use: [todo], [deadline], [event], [list], [mark], [unmark] ");
         }
     }
 
-    private static void cleanUpMark() {
+    private static void cleanUpMark() throws ParserException {
         String[] words = textInput.split(" ");
-        String taskNumber = words[1];
+        if (words.length < 2) {
+            throw new ParserException();
+        }
+        taskNumber = words[1];
         taskIndex = Integer.parseInt(taskNumber) - 1;
         inputCommand = words[0];
     }
 
-    private static void cleanUpTodo() {
+    private static void cleanUpTodo() throws ParserException {
         if (spaceIndex == -1) {
-            System.out.println("Invalid Command. Use todo + taskname");
-            return;
+            throw new ParserException();
         }
         inputCommand = textInput.substring(0, spaceIndex);
         taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD);
     }
 
-    private static void cleanUpDeadline() {
+    private static void cleanUpDeadline() throws ParserException {
         if (spaceIndex == -1 || slashIndex == -1) {
-            System.out.println("Invalid Command. Use deadline + taskname + /by");
-            return;
+            throw new ParserException();
         }
         inputCommand = textInput.substring(0, spaceIndex);
         taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
         deadline = textInput.substring(slashIndex + Constants.BY_PAD);
     }
 
-    private static void cleanUpEvent() {
+    private static void cleanUpEvent() throws ParserException {
         if (spaceIndex == -1 || slashIndex == -1 || slashIndex2 == -1) {
-            System.out.println("Invalid Command. Use event + taskname + /from time /to time");
-            return;
+            throw new ParserException();
         }
         inputCommand = textInput.substring(0, spaceIndex);
         taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
@@ -74,6 +95,7 @@ public class Parser {
     private static void resetVariables() {
         inputCommand = "invalid";
         taskName = null;
+        taskNumber = null;
         taskIndex = -1;
         spaceIndex = -1;
         slashIndex = -1;
