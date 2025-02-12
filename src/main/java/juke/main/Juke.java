@@ -1,3 +1,8 @@
+package juke.main;
+
+import juke.input.InputHandler;
+import juke.task.TaskManager;
+
 import java.util.Scanner;
 
 public class Juke {
