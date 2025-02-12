@@ -1,3 +1,7 @@
+package juke.input;
+
+import juke.main.Constants;
+
 public class Parser {
     private static String textInput;
     private static String inputCommand = "invalid";

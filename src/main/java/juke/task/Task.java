@@ -1,3 +1,5 @@
+package juke.task;
+
 public abstract class Task {
     protected String taskName; //actual content of task
     protected boolean isDone; //boolean flag to check if its completed or uncompleted

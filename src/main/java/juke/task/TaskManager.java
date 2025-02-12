@@ -1,3 +1,7 @@
+package juke.task;
+
+import juke.main.Constants;
+
 public class TaskManager {
     private Task[] taskList = new Task[Constants.LIST_SIZE];
     private int currentListPosition = 0; //keep track of where to add new tasks
@@ -49,7 +53,7 @@ public class TaskManager {
 
     public void unmarkTask(int taskIndex) { //marks a task as uncompleted
         taskList[taskIndex].unmarkTask();
-        System.out.println("Nice! I've marked this task as uncompleted:");
+        System.out.println("Okay! I've marked this task as uncompleted:");
         System.out.println("[ ] " + taskList[taskIndex].getTaskName());
     }
 }

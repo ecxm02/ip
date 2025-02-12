@@ -1,3 +1,9 @@
+package juke.input;
+
+import juke.task.TaskManager;
+import juke.main.Juke;
+import juke.main.Constants;
+
 public class InputHandler {
     private static String textInput;
 
