@@ -43,6 +43,8 @@ public class InputHandler {
         case "unmark":
             taskList.unmarkTask(taskIndex);
             break;
+        case "delete":
+            taskList.deleteTask(taskIndex);
         }
 
         System.out.println(Constants.LINE_BREAK);

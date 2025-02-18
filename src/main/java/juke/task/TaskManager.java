@@ -52,4 +52,11 @@ public class TaskManager {
         System.out.println("Okay! I've marked this task as uncompleted:");
         System.out.println("[ ] " + taskList.get(taskIndex).getTaskName());
     }
+
+    public void deleteTask(int taskIndex) {
+        String taskName = taskList.get(taskIndex).getTaskName();
+        taskList.remove(taskIndex);
+        System.out.println("Okay! I've deleted this task");
+        System.out.println(taskIndex + 1 + ". " + taskName);
+    }
 }
