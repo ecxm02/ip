@@ -2,7 +2,6 @@ package juke.main;
 
 import juke.input.InputHandler;
 import juke.persistence.FileLoader;
-import juke.persistence.FileSaver;
 import juke.task.TaskManager;
 
 import java.util.Scanner;
@@ -28,7 +27,6 @@ public class Juke {
             InputHandler.readText(taskManager,text);
         }
 
-        FileSaver.writeToFile(taskManager.getTaskList());
         input.close();
     }
 }

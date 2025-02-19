@@ -41,6 +41,7 @@ public class FileLoader {
                     taskName = words[2];
                     deadline = words[3];
                     taskList.add(new Deadline(taskName, isDone, deadline));
+                    break;
                 case "E":
                     taskName = words[2];
                     from = words[3];
