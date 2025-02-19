@@ -96,6 +96,7 @@ public class TaskManager {
 
     public ArrayList<Task> getTaskList() {
         return taskList;
+    }
 
     public void deleteTask(int taskIndex) {
         String taskName = taskList.get(taskIndex).getTaskName();
