@@ -44,6 +44,8 @@ public class InputHandler {
             break;
         case "clear":
             taskManager.clearTaskList();
+        case "delete":
+            taskList.deleteTask(taskIndex);
         }
         System.out.println(Constants.LINE_BREAK);
     }

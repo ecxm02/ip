@@ -51,6 +51,12 @@ public class Parser {
             } catch (Exception e) {
                 inputCommand = "invalid";
             }
+        } else if (textInput.startsWith("delete")) {
+            try {
+                cleanUpDelete();
+            } catch (Exception e) {
+                inputCommand = "invalid";
+            }
         } else if (textInput.startsWith("list")) {
             inputCommand = "list";
         } else if (textInput.startsWith("bye")) {
@@ -97,6 +103,16 @@ public class Parser {
         taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
         from = textInput.substring(slashIndex + Constants.FROM_PAD, slashIndex2 - Constants.EMPTY_PAD);
         to = textInput.substring(slashIndex2 + Constants.TO_PAD);
+    }
+
+    private static void cleanUpDelete() throws ParserException {
+        String[] words = textInput.split(" ");
+        if (words.length < 2) {
+            throw new ParserException();
+        }
+        taskNumber = words[1];
+        taskIndex = Integer.parseInt(taskNumber) - 1;
+        inputCommand = words[0];
     }
 
     private static void resetVariables() {

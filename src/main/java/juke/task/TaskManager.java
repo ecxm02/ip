@@ -3,7 +3,6 @@ package juke.task;
 
 import juke.persistence.FileSaver;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -97,5 +96,11 @@ public class TaskManager {
 
     public ArrayList<Task> getTaskList() {
         return taskList;
+
+    public void deleteTask(int taskIndex) {
+        String taskName = taskList.get(taskIndex).getTaskName();
+        taskList.remove(taskIndex);
+        System.out.println("Okay! I've deleted this task");
+        System.out.println(taskIndex + 1 + ". " + taskName);
     }
 }
