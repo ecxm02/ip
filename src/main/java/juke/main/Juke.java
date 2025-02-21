@@ -13,7 +13,7 @@ public class Juke {
     public static void endProgram() {
         //sets the isCompleted flag to true so that the loop ends, also prints end message
         isCompleted = true;
-        System.out.println("Bye! See you again :)");
+        System.out.println("Bye! See you again!");
     }
 
     public static void main(String[] args) {

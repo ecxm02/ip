@@ -1,15 +1,26 @@
-# Juke project template
+# Duke project template
 
-This is a CLI Task List Manager named Juke. Given below are instructions on how to use it.
+This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
-1. Copy the `JAR file` into any folder
-1. Open the PowerShell in that directory
-   1. Run the Command `java -jar Juke.jar`.
-   1. You should see the following output.
-      1.    Hello! I'm Juke Excited to talk to you! :).
-1. The Task Manager can be used with the following commands`[todo], [deadline], [event], [list], [mark], [unmark] or [clear]`
- 
+1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+1. Open the project into Intellij as follows:
+   1. Click `Open`.
+   1. Select the project directory, and click `OK`.
+   1. If there are any further prompts, accept the defaults.
+1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+   In the same dialog, set the **Project language level** field to the `SDK default` option.
+1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+   ```
+   Hello from
+    ____        _        
+   |  _ \ _   _| | _____ 
+   | | | | | | | |/ / _ \
+   | |_| | |_| |   <  __/
+   |____/ \__,_|_|\_\___|
+   ```
+
+**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
