@@ -15,8 +15,9 @@ public class FileSaver {
     }
 
     public static void writeToFile(Task task) {
+        ensureDirectoryExists();
 
-        try (FileWriter writer = new FileWriter((Constants.SAVE_FILE_PATH), true)) {
+        try (FileWriter writer = new FileWriter((Constants.SAVE_FILE_NAME), true)) {
             String taskType = task.getTaskType();
             switch (taskType) {
             case "T":
@@ -41,10 +42,19 @@ public class FileSaver {
     }
 
     public static void clearSaveFile() {
-        File file = new File(Constants.SAVE_FILE_PATH);
+        File file = new File(Constants.SAVE_FILE_NAME);
 
         if (file.exists()) {
             file.delete();
         }
     }
+
+    public static void ensureDirectoryExists() {
+        File directory = new File(Constants.SAVE_FILE_PATH);
+
+        if (!directory.exists()) {
+            directory.mkdirs(); // Creates the directory and any necessary parents
+        }
+    }
+
 }

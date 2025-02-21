@@ -21,7 +21,7 @@ public class TaskManager {
             if (task.isDone()) {
                 isDone = "Completed";
             } else {
-                isDone = "Ongoing";
+                isDone = "Incomplete";
             }
 
             System.out.print((i + 1) + ". ");
@@ -79,13 +79,15 @@ public class TaskManager {
     public void markTask(int taskIndex) { //marks a task as completed
         taskList.get(taskIndex).markTask();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(taskIndex + 1 + ". " + taskList.get(taskIndex).getTaskName() + "[Completed]");
+        System.out.println(taskIndex + 1 + ". Task Name: " + taskList.get(taskIndex).getTaskName());
+        System.out.println("Status: [Completed]");
     }
 
     public void unmarkTask(int taskIndex) { //marks a task as uncompleted
         taskList.get(taskIndex).unmarkTask();
-        System.out.println("Okay! I've marked this task as uncompleted:");
-        System.out.println(taskIndex + 1 + ". " + taskList.get(taskIndex).getTaskName() + "[Ongoing]");
+        System.out.println("Okay! I've marked this task as incomplete:");
+        System.out.println(taskIndex + 1 + ". Task Name: " + taskList.get(taskIndex).getTaskName());
+        System.out.println("Status: [Incomplete]");
     }
 
     public void clearTaskList() {
