@@ -23,7 +23,7 @@ public class FileLoader {
     }
 
     public static void readFromFile(ArrayList<Task> taskList) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(Constants.SAVE_FILE_NAME))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Constants.SAVE_FILE_PATH))) {
             System.out.println("Save file found, loading save file");
             String line;
 
