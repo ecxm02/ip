@@ -1,19 +1,21 @@
 package juke.task;
 
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDate;
 
-    public Deadline(String task, String deadline) {
+public class Deadline extends Task {
+    private LocalDate deadline;
+
+    public Deadline(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
     }
 
-    public Deadline(String task, boolean isDone, String deadline) {
+    public Deadline(String task, boolean isDone, LocalDate deadline) {
         super(task, isDone);
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 

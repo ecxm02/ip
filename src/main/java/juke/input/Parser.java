@@ -1,7 +1,9 @@
 package juke.input;
 
-import juke.exception.ParserException;
+import juke.exception.*;
 import juke.main.Constants;
+
+import java.time.LocalDate;
 
 public class Parser {
     private static String textInput;
@@ -12,9 +14,9 @@ public class Parser {
     private static int spaceIndex = -1;
     private static int slashIndex = -1;
     private static int slashIndex2 = -1;
-    private static String deadline;
-    private static String from;
-    private static String to;
+    private static LocalDate deadline;
+    private static LocalDate from;
+    private static LocalDate to;
 
     private Parser() {
     }
@@ -28,85 +30,78 @@ public class Parser {
         slashIndex2 = textInput.indexOf("/", slashIndex + Constants.EMPTY_PAD);
 
         if (textInput.startsWith("mark") || textInput.startsWith("unmark")) {
-            try {
-                cleanUpMark();
-            } catch (Exception e) {
-                inputCommand = "invalid";
-            }
+            cleanUpMark();
         } else if (textInput.startsWith("todo")) {
-            try {
-                cleanUpTodo();
-            } catch (Exception e) {
-                inputCommand = "invalid";
-            }
+            cleanUpTodo();
         } else if (textInput.startsWith("deadline")) {
-            try {
-                cleanUpDeadline();
-            } catch (Exception e) {
-                inputCommand = "invalid";
-            }
+            cleanUpDeadline();
         } else if (textInput.startsWith("event")) {
-            try {
-                cleanUpEvent();
-            } catch (Exception e) {
-                inputCommand = "invalid";
-            }
+            cleanUpEvent();
         } else if (textInput.startsWith("delete")) {
-            try {
-                cleanUpDelete();
-            } catch (Exception e) {
-                inputCommand = "invalid";
-            }
+            cleanUpDelete();
         } else if (textInput.startsWith("list")) {
             inputCommand = "list";
         } else if (textInput.startsWith("bye")) {
             inputCommand = "bye";
         } else if (textInput.startsWith("clear")) {
             inputCommand = "clear";
+        } else if (textInput.startsWith("help")) {
+            inputCommand = "help";
         }
     }
 
-    private static void cleanUpMark() throws ParserException {
+    private static void cleanUpMark() throws MarkParserException {
         String[] words = textInput.split(" ");
         if (words.length < 2) {
-            throw new ParserException();
+            throw new MarkParserException();
         }
         taskNumber = words[1];
         taskIndex = Integer.parseInt(taskNumber) - 1;
         inputCommand = words[0];
     }
 
-    private static void cleanUpTodo() throws ParserException {
+    private static void cleanUpTodo() throws TodoParserException {
         if (spaceIndex == -1) {
-            throw new ParserException();
+            throw new TodoParserException();
         }
         inputCommand = textInput.substring(0, spaceIndex);
         taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD);
     }
 
-    private static void cleanUpDeadline() throws ParserException {
+    private static void cleanUpDeadline() throws DeadlineParserException {
         if (spaceIndex == -1 || slashIndex == -1) {
-            throw new ParserException();
+            throw new DeadlineParserException();
         }
         inputCommand = textInput.substring(0, spaceIndex);
         taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
-        deadline = textInput.substring(slashIndex + Constants.BY_PAD);
+        String deadlineString = textInput.substring(slashIndex + Constants.BY_PAD);
+        try {
+            deadline = LocalDate.parse(deadlineString);
+        } catch (Exception e) {
+            throw new DateParserException();
+        }
     }
 
-    private static void cleanUpEvent() throws ParserException {
+    private static void cleanUpEvent() throws EventParserException {
         if (spaceIndex == -1 || slashIndex == -1 || slashIndex2 == -1) {
-            throw new ParserException();
+            throw new EventParserException();
         }
         inputCommand = textInput.substring(0, spaceIndex);
         taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
-        from = textInput.substring(slashIndex + Constants.FROM_PAD, slashIndex2 - Constants.EMPTY_PAD);
-        to = textInput.substring(slashIndex2 + Constants.TO_PAD);
+        String fromString = textInput.substring(slashIndex + Constants.FROM_PAD, slashIndex2 - Constants.EMPTY_PAD);
+        String toString = textInput.substring(slashIndex2 + Constants.TO_PAD);
+        try {
+            from = LocalDate.parse(fromString);
+            to = LocalDate.parse(toString);
+        } catch (Exception e) {
+            throw new DateParserException();
+        }
     }
 
-    private static void cleanUpDelete() throws ParserException {
+    private static void cleanUpDelete() throws DeleteParserException {
         String[] words = textInput.split(" ");
         if (words.length < 2) {
-            throw new ParserException();
+            throw new DeleteParserException();
         }
         taskNumber = words[1];
         taskIndex = Integer.parseInt(taskNumber) - 1;
@@ -138,15 +133,15 @@ public class Parser {
         return taskName;
     }
 
-    public static String getDeadline() {
+    public static LocalDate getDeadline() {
         return deadline;
     }
 
-    public static String getFrom() {
+    public static LocalDate getFrom() {
         return from;
     }
 
-    public static String getTo() {
+    public static LocalDate getTo() {
         return to;
     }
 }

@@ -4,6 +4,8 @@ import juke.task.TaskManager;
 import juke.main.Juke;
 import juke.main.Constants;
 
+import java.time.LocalDate;
+
 public class InputHandler {
     private static String textInput;
 
@@ -18,7 +20,7 @@ public class InputHandler {
 
     //uses a switch to execute appropriate methods for the input
     public static void respondToText(String inputCommand, String taskName, int taskIndex,
-                                     String deadline, String from, String to) {
+                                     LocalDate deadline, LocalDate from, LocalDate to) {
 
         switch (inputCommand) {
         case "bye":
@@ -48,8 +50,11 @@ public class InputHandler {
         case "delete":
             TaskManager.deleteTask(taskIndex);
             break;
+        case "help":
+            System.out.println(Constants.HELP_MESSAGE);
+            break;
         default:
-            System.out.println(Constants.SYNTAX_ERROR_MESSAGE);
+            System.out.println("Invalid Command, type 'help' for a list of commands");
         }
         System.out.println(Constants.LINE_BREAK);
     }
