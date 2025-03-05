@@ -63,8 +63,6 @@ public class Parser {
             inputCommand = "bye";
         } else if (textInput.startsWith("clear")) {
             inputCommand = "clear";
-        } else {
-            System.out.println("Invalid command, Use: [todo], [deadline], [event], [list], [mark], [unmark] or [clear]");
         }
     }
 

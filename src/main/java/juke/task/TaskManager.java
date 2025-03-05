@@ -1,17 +1,17 @@
 
 package juke.task;
 
-import juke.persistence.FileSaver;
+import juke.storage.FileSaver;
 
 import java.util.ArrayList;
 
 public class TaskManager {
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
-    public TaskManager() {
+    private TaskManager() {
     }
 
-    public void listTask() { //prints out the tasks and marks them appropriately
+    public static void listTask() { //prints out the tasks and marks them appropriately
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             String isDone;
@@ -44,12 +44,14 @@ public class TaskManager {
                 System.out.println("From: " + eventTask.getFrom());
                 System.out.println("To: " + eventTask.getTo());
                 break;
+            default:
+                System.out.println("Error in case type, check TaskManager class");
             }
             System.out.println("");
         }
     }
 
-    public void addTodo(String taskName) { //adds tasks into the array
+    public static void addTodo(String taskName) { //adds tasks into the array
         Task newTask = new Todo(taskName);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new todo");
@@ -57,7 +59,7 @@ public class TaskManager {
         FileSaver.writeToFile(newTask);
     }
 
-    public void addDeadline(String taskName, String deadline) { //adds tasks into the array
+    public static void addDeadline(String taskName, String deadline) { //adds tasks into the array
         Task newTask = new Deadline(taskName, deadline);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new deadline");
@@ -66,7 +68,7 @@ public class TaskManager {
         FileSaver.writeToFile(newTask);
     }
 
-    public void addEvent(String taskName, String from, String to) { //adds tasks into the array
+    public static void addEvent(String taskName, String from, String to) { //adds tasks into the array
         Task newTask = new Event(taskName, from, to);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new event");
@@ -76,31 +78,31 @@ public class TaskManager {
         FileSaver.writeToFile(newTask);
     }
 
-    public void markTask(int taskIndex) { //marks a task as completed
+    public static void markTask(int taskIndex) { //marks a task as completed
         taskList.get(taskIndex).markTask();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskIndex + 1 + ". Task Name: " + taskList.get(taskIndex).getTaskName());
         System.out.println("Status: [Completed]");
     }
 
-    public void unmarkTask(int taskIndex) { //marks a task as uncompleted
+    public static void unmarkTask(int taskIndex) { //marks a task as uncompleted
         taskList.get(taskIndex).unmarkTask();
         System.out.println("Okay! I've marked this task as incomplete:");
         System.out.println(taskIndex + 1 + ". Task Name: " + taskList.get(taskIndex).getTaskName());
         System.out.println("Status: [Incomplete]");
     }
 
-    public void clearTaskList() {
+    public static void clearTaskList() {
         taskList.clear();
         FileSaver.clearSaveFile();
         System.out.println("Okay! I've cleared the task list");
     }
 
-    public ArrayList<Task> getTaskList() {
+    public static ArrayList<Task> getTaskList() {
         return taskList;
     }
 
-    public void deleteTask(int taskIndex) {
+    public static void deleteTask(int taskIndex) {
         String taskName = taskList.get(taskIndex).getTaskName();
         taskList.remove(taskIndex);
         System.out.println("Okay! I've deleted this task");

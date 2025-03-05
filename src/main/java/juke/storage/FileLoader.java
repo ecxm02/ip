@@ -1,4 +1,4 @@
-package juke.persistence;
+package juke.storage;
 
 import juke.main.Constants;
 import juke.task.Deadline;
@@ -22,7 +22,7 @@ public class FileLoader {
     private FileLoader() {
     }
 
-    public static void readFromFile(ArrayList<Task> taskList) {
+    public static void loadFile(ArrayList<Task> taskList) {
         try (BufferedReader reader = new BufferedReader(new FileReader(Constants.SAVE_FILE_NAME))) {
             System.out.println("Save file found, loading save file");
             String line;
@@ -47,6 +47,8 @@ public class FileLoader {
                     from = words[3];
                     to = words[4];
                     taskList.add(new Event(taskName, isDone, from, to));
+                default:
+                    System.out.println("Error in case type, check FileLoader class");
                 }
             }
 

@@ -1,4 +1,4 @@
-package juke.persistence;
+package juke.storage;
 
 import juke.main.Constants;
 import juke.task.Task;
