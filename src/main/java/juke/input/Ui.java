@@ -4,8 +4,8 @@ import juke.main.Constants;
 
 import java.util.Scanner;
 
-public class UI {
-    private UI() {
+public class Ui {
+    private Ui() {
     }
 
     private static Scanner input = new Scanner(System.in);
@@ -13,6 +13,8 @@ public class UI {
 
     public static void introMessage() {
         System.out.println(Constants.INTRO_MESSAGE);
+        System.out.print(Constants.HELP_MESSAGE);
+        System.out.println(Constants.LINE_BREAK + System.lineSeparator());
     }
 
     public static void endProgramMessage() {

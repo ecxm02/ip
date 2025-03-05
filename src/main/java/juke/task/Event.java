@@ -1,26 +1,28 @@
 package juke.task;
 
-public class Event extends Task {
-    private String from;
-    private String to;
+import java.time.LocalDate;
 
-    public Event(String taskName, String from, String to){
+public class Event extends Task {
+    private LocalDate from;
+    private LocalDate to;
+
+    public Event(String taskName, LocalDate from, LocalDate to){
         super(taskName);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String taskName, boolean isDone, String from, String to){
+    public Event(String taskName, boolean isDone, LocalDate from, LocalDate to){
         super(taskName, isDone);
         this.from = from;
         this.to = to;
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return to;
     }
 

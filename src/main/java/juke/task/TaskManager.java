@@ -3,7 +3,9 @@ package juke.task;
 
 import juke.storage.FileSaver;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class TaskManager {
     private static ArrayList<Task> taskList = new ArrayList<>();
@@ -35,14 +37,14 @@ public class TaskManager {
                 Deadline deadlineTask = (Deadline) task;
                 System.out.println("[Todo][" + isDone + "]");
                 System.out.println("Task Name: " + taskName);
-                System.out.println("Deadline: " + deadlineTask.getDeadline());
+                System.out.println("Deadline: " + deadlineTask.getDeadline().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
                 break;
             case "E":
                 Event eventTask = (Event) task;
                 System.out.println("[Todo][" + isDone + "]");
                 System.out.println("Task Name: " + taskName);
-                System.out.println("From: " + eventTask.getFrom());
-                System.out.println("To: " + eventTask.getTo());
+                System.out.println("From: " + eventTask.getFrom().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
+                System.out.println("To: " + eventTask.getTo().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
                 break;
             default:
                 System.out.println("Error in case type, check TaskManager class");
@@ -59,22 +61,22 @@ public class TaskManager {
         FileSaver.writeToFile(newTask);
     }
 
-    public static void addDeadline(String taskName, String deadline) { //adds tasks into the array
+    public static void addDeadline(String taskName, LocalDate deadline) { //adds tasks into the array
         Task newTask = new Deadline(taskName, deadline);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new deadline");
         System.out.println(taskList.size() + ". " + taskName);
-        System.out.println("Deadline: " + deadline);
+        System.out.println("Deadline: " + deadline.format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
         FileSaver.writeToFile(newTask);
     }
 
-    public static void addEvent(String taskName, String from, String to) { //adds tasks into the array
+    public static void addEvent(String taskName, LocalDate from, LocalDate to) { //adds tasks into the array
         Task newTask = new Event(taskName, from, to);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new event");
         System.out.println(taskList.size() + ". " + taskName);
-        System.out.println("From: " + from);
-        System.out.println("To: " + to);
+        System.out.println("From: " + from.format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
+        System.out.println("To: " + to.format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
         FileSaver.writeToFile(newTask);
     }
 

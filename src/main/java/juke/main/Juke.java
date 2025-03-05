@@ -1,26 +1,32 @@
 package juke.main;
 
-import juke.input.UI;
+import juke.exception.ExceptionHandler;
+import juke.input.Ui;
 import juke.storage.FileLoader;
 import juke.task.TaskManager;
 
 public class Juke {
-    private static boolean isCompleted = false;//a master flag so that main knows when to end the program
+    private static boolean isRunning = true; //a master flag so that main knows when to end the program
+
+    public static boolean isRunning() {
+        return isRunning;
+    }
 
     public static void endProgram() {
         //sets the isCompleted flag to true so that the loop ends, also prints end message
-        isCompleted = true;
+        isRunning = false;
     }
 
     public static void main(String[] args) {
+        ExceptionHandler.activate();
         FileLoader.loadFile(TaskManager.getTaskList());
-        UI.introMessage();
+        Ui.introMessage();
 
-        while (!isCompleted) {
-            UI.readInput();
+        while (isRunning) {
+            Ui.readInput();
         }
 
-        UI.endProgramMessage();
-        UI.closeInput();
+        Ui.endProgramMessage();
+        Ui.closeInput();
     }
 }

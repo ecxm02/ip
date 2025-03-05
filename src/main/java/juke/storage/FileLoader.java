@@ -9,14 +9,15 @@ import juke.task.Todo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class FileLoader {
     private static String taskType;
     private static String taskName;
-    private static String deadline;
-    private static String from;
-    private static String to;
+    private static LocalDate deadline;
+    private static LocalDate from;
+    private static LocalDate to;
     private static boolean isDone;
 
     private FileLoader() {
@@ -39,13 +40,16 @@ public class FileLoader {
                     break;
                 case "D":
                     taskName = words[2];
-                    deadline = words[3];
+                    String deadlineString = words[3];
+                    deadline = LocalDate.parse(deadlineString);
                     taskList.add(new Deadline(taskName, isDone, deadline));
                     break;
                 case "E":
                     taskName = words[2];
-                    from = words[3];
-                    to = words[4];
+                    String fromString = words[3];
+                    String toString = words[4];
+                    from = LocalDate.parse(fromString);
+                    to = LocalDate.parse(toString);
                     taskList.add(new Event(taskName, isDone, from, to));
                 default:
                     System.out.println("Error in case type, check FileLoader class");
