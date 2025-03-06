@@ -9,11 +9,20 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 
-
+/**
+ * The `FileSaver` class is responsible for saving tasks to a file.
+ * It provides methods to write tasks to the file, clear the save file, and ensure the save directory exists.
+ */
 public class FileSaver {
     private FileSaver() {
     }
 
+    /**
+     * Writes a task to the save file.
+     * The task is appended to the file in a specific format based on its type.
+     *
+     * @param task the task to be written to the file
+     */
     public static void writeToFile(Task task) {
         ensureDirectoryExists();
 
@@ -41,6 +50,9 @@ public class FileSaver {
         }
     }
 
+    /**
+     * Clears the save file by deleting it if it exists.
+     */
     public static void clearSaveFile() {
         File file = new File(Constants.SAVE_FILE_NAME);
 
@@ -49,6 +61,10 @@ public class FileSaver {
         }
     }
 
+    /**
+     * Ensures that the save directory exists.
+     * If the directory does not exist, it creates the directory and any necessary parent directories.
+     */
     public static void ensureDirectoryExists() {
         File directory = new File(Constants.SAVE_FILE_PATH);
 

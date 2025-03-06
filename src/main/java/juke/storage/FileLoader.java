@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * The `FileLoader` class is responsible for loading tasks from a save file.
+ * It reads the file line by line, parses the task information, and adds the tasks to the provided task list.
+ */
 public class FileLoader {
     private static String taskType;
     private static String taskName;
@@ -23,6 +27,12 @@ public class FileLoader {
     private FileLoader() {
     }
 
+    /**
+     * Loads tasks from the save file and adds them to the provided task list.
+     * If the save file is not found, it starts with a new task list.
+     *
+     * @param taskList the list to which the loaded tasks will be added
+     */
     public static void loadFile(ArrayList<Task> taskList) {
         try (BufferedReader reader = new BufferedReader(new FileReader(Constants.SAVE_FILE_NAME))) {
             System.out.println("Save file found, loading save file");
