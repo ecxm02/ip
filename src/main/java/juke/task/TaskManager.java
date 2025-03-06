@@ -53,6 +53,44 @@ public class TaskManager {
         }
     }
 
+    private static void listOneTask(Task task) {
+        String isDone;
+        String taskType = task.getTaskType();
+        String taskName = task.getTaskName();
+        int taskIndex = taskList.indexOf(task);
+
+        if (task.isDone()) {
+            isDone = "Completed";
+        } else {
+            isDone = "Incomplete";
+        }
+
+        System.out.print((taskIndex + 1) + ". ");
+
+        switch (taskType) {
+        case "T":
+            System.out.println("[Todo][" + isDone + "]");
+            System.out.println("Task Name: " + taskName);
+            break;
+        case "D":
+            Deadline deadlineTask = (Deadline) task;
+            System.out.println("[Todo][" + isDone + "]");
+            System.out.println("Task Name: " + taskName);
+            System.out.println("Deadline: " + deadlineTask.getDeadline().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
+            break;
+        case "E":
+            Event eventTask = (Event) task;
+            System.out.println("[Todo][" + isDone + "]");
+            System.out.println("Task Name: " + taskName);
+            System.out.println("From: " + eventTask.getFrom().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
+            System.out.println("To: " + eventTask.getTo().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
+            break;
+        default:
+            System.out.println("Error in case type, check TaskManager class");
+        }
+        System.out.println("");
+    }
+
     public static void addTodo(String taskName) { //adds tasks into the array
         Task newTask = new Todo(taskName);
         taskList.add(newTask);
@@ -109,6 +147,19 @@ public class TaskManager {
         taskList.remove(taskIndex);
         System.out.println("Okay! I've deleted this task");
         System.out.println(taskIndex + 1 + ". " + taskName);
+    }
+
+    public static void findTask(String keyword) {
+        int found = 0;
+        for (Task task : taskList) {
+            if (task.getTaskName().contains(keyword)) {
+                listOneTask(task);
+                found += 1;
+            }
+        }
+        if (found == 0) {
+            System.out.println("No tasks found with the keyword: " + keyword);
+        }
     }
 
     public static int getSize() {

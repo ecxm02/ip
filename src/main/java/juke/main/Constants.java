@@ -29,7 +29,9 @@ public class Constants {
             "'list'" + System.lineSeparator() + System.lineSeparator() +
             "6. To delete a specific Task" + System.lineSeparator() +
             "'delete' + [Task Index]" + System.lineSeparator() + System.lineSeparator() +
-            "7. To clear the whole Task List" + System.lineSeparator() +
+            "7. To find a Task using a keyword" + System.lineSeparator() +
+            "'find' + [Keyword]" + System.lineSeparator() + System.lineSeparator() +
+            "8. To clear the whole Task List" + System.lineSeparator() +
             "'clear'" + System.lineSeparator();
 
     public static final String DATE_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your [by], [from], [to] follows this date format"  + System.lineSeparator() +
@@ -57,11 +59,15 @@ public class Constants {
     public static final String TASK_INDEX_OUT_OF_BOUNDS = "Index Error detected! Ensure that your Task Index is exists in your Task List" + System.lineSeparator() +
             "Type 'list' to view your Task List";
 
+    public static final String FIND_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your 'find' command follows this format" + System.lineSeparator() +
+            "'find' + [Keyword]";
+
     public static final String MARK_REGEX = "^mark\\s+(\\d+)$";
     public static final String UNMARK_REGEX = "^unmark\\s+(\\d+)$";
     public static final String TODO_REGEX = "^todo\\s+(.+)$";
     public static final String DEADLINE_REGEX = "^deadline\\s+(.+)\\s+/by\\s+(.+)$";
     public static final String EVENT_REGEX = "event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
     public static final String DELETE_REGEX = "^delete\\s+(\\d+)$";
+    public static final String FIND_REGEX = "^find\\s+(.+)$";
 
 }

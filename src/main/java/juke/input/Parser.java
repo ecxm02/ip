@@ -37,6 +37,8 @@ public class Parser {
             cleanUpEvent();
         } else if (textInput.startsWith("delete")) {
             cleanUpDelete();
+        } else if (textInput.startsWith("find")) {
+            cleanUpFind();
         } else if (textInput.startsWith("list")) {
             inputCommand = "list";
         } else if (textInput.startsWith("bye")) {
@@ -139,6 +141,17 @@ public class Parser {
             inputCommand = "delete";
         } else {
             throw new DeleteParserException();
+        }
+    }
+
+    private static void cleanUpFind() throws FindParserException {
+        Pattern pattern = Pattern.compile(Constants.FIND_REGEX);
+        Matcher matcher = pattern.matcher(textInput);
+        if (matcher.matches()) {
+            taskName = matcher.group(1);
+            inputCommand = "find";
+        } else {
+            throw new FindParserException();
         }
     }
 
