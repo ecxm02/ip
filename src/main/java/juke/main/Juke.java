@@ -24,6 +24,7 @@ public class Juke {
             try {
                 Ui.readInput();
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 System.out.println(Constants.LINE_BREAK);
             }
         }

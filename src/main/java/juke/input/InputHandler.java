@@ -50,6 +50,9 @@ public class InputHandler {
         case "delete":
             TaskManager.deleteTask(taskIndex);
             break;
+        case "find":
+            TaskManager.findTask(taskName);
+            break;
         case "help":
             System.out.println(Constants.HELP_MESSAGE);
             break;
