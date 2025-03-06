@@ -7,13 +7,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+/**
+ * Manages a list of tasks, providing operations to list, add, modify, and delete tasks.
+ */
 public class TaskManager {
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     private TaskManager() {
     }
 
-    public static void listTask() { //prints out the tasks and marks them appropriately
+    /**
+     * Lists all tasks in the task list with their details.
+     */
+    public static void listTask() {
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             String isDone;
@@ -53,6 +59,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Displays details for a single task.
+     *
+     * @param task the task to display.
+     */
     private static void listOneTask(Task task) {
         String isDone;
         String taskType = task.getTaskType();
@@ -91,7 +102,12 @@ public class TaskManager {
         System.out.println("");
     }
 
-    public static void addTodo(String taskName) { //adds tasks into the array
+    /**
+     * Creates a new todo task and adds it to the task list.
+     *
+     * @param taskName the name of the todo task.
+     */
+    public static void addTodo(String taskName) {
         Task newTask = new Todo(taskName);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new todo");
@@ -99,7 +115,13 @@ public class TaskManager {
         FileSaver.writeToFile(newTask);
     }
 
-    public static void addDeadline(String taskName, LocalDate deadline) { //adds tasks into the array
+    /**
+     * Creates a new deadline task and adds it to the task list.
+     *
+     * @param taskName the name of the deadline task.
+     * @param deadline the due date of the task.
+     */
+    public static void addDeadline(String taskName, LocalDate deadline) {
         Task newTask = new Deadline(taskName, deadline);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new deadline");
@@ -108,7 +130,14 @@ public class TaskManager {
         FileSaver.writeToFile(newTask);
     }
 
-    public static void addEvent(String taskName, LocalDate from, LocalDate to) { //adds tasks into the array
+    /**
+     * Creates a new event task and adds it to the task list.
+     *
+     * @param taskName the name of the event.
+     * @param from the start date of the event.
+     * @param to the end date of the event.
+     */
+    public static void addEvent(String taskName, LocalDate from, LocalDate to) {
         Task newTask = new Event(taskName, from, to);
         taskList.add(newTask);
         System.out.println("Okay! I've added a new event");
@@ -118,20 +147,33 @@ public class TaskManager {
         FileSaver.writeToFile(newTask);
     }
 
-    public static void markTask(int taskIndex) { //marks a task as completed
+    /**
+     * Marks the specified task as completed.
+     *
+     * @param taskIndex the index of the task to mark.
+     */
+    public static void markTask(int taskIndex) {
         taskList.get(taskIndex).markTask();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskIndex + 1 + ". Task Name: " + taskList.get(taskIndex).getTaskName());
         System.out.println("Status: [Completed]");
     }
 
-    public static void unmarkTask(int taskIndex) { //marks a task as uncompleted
+    /**
+     * Marks the specified task as incomplete.
+     *
+     * @param taskIndex the index of the task to unmark.
+     */
+    public static void unmarkTask(int taskIndex) {
         taskList.get(taskIndex).unmarkTask();
         System.out.println("Okay! I've marked this task as incomplete:");
         System.out.println(taskIndex + 1 + ". Task Name: " + taskList.get(taskIndex).getTaskName());
         System.out.println("Status: [Incomplete]");
     }
 
+    /**
+     * Clears all tasks from the task list and the associated save file.
+     */
     public static void clearTaskList() {
         taskList.clear();
         FileSaver.clearSaveFile();
@@ -142,6 +184,11 @@ public class TaskManager {
         return taskList;
     }
 
+    /**
+     * Deletes the specified task from the task list.
+     *
+     * @param taskIndex the index of the task to delete.
+     */
     public static void deleteTask(int taskIndex) {
         String taskName = taskList.get(taskIndex).getTaskName();
         taskList.remove(taskIndex);
@@ -149,6 +196,11 @@ public class TaskManager {
         System.out.println(taskIndex + 1 + ". " + taskName);
     }
 
+    /**
+     * Searches and displays tasks that contain the given keyword.
+     *
+     * @param keyword the keyword to search for.
+     */
     public static void findTask(String keyword) {
         int found = 0;
         for (Task task : taskList) {

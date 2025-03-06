@@ -6,19 +6,36 @@ import juke.main.Constants;
 
 import java.time.LocalDate;
 
+/**
+ * The `InputHandler` class is responsible for handling user input by parsing the text and executing the corresponding commands.
+ */
 public class InputHandler {
     private static String textInput;
 
     private InputHandler() {
     }
 
+    /**
+     * Reads and processes the input text.
+     *
+     * @param textInput the input text to be processed
+     */
     public static void readText(String textInput) {
         Parser.cleanText(textInput);
         respondToText(Parser.getInputCommand(), Parser.getTaskName(), Parser.getTaskIndex(),
                 Parser.getDeadline(), Parser.getFrom(), Parser.getTo());
     }
 
-    //uses a switch to execute appropriate methods for the input
+    /**
+     * Responds to the parsed input command by executing the appropriate method.
+     *
+     * @param inputCommand the parsed command
+     * @param taskName     the name of the task (if applicable)
+     * @param taskIndex    the index of the task (if applicable)
+     * @param deadline     the deadline of the task (if applicable)
+     * @param from         the start date of the event (if applicable)
+     * @param to           the end date of the event (if applicable)
+     */
     public static void respondToText(String inputCommand, String taskName, int taskIndex,
                                      LocalDate deadline, LocalDate from, LocalDate to) {
 

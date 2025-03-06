@@ -8,6 +8,11 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The `Parser` class is responsible for parsing and validating user input commands.
+ * It cleans the input text, determines the command, and extracts the necessary parameters.
+ * This class also handles exceptions related to incorrect command formats.
+ */
 public class Parser {
     private static String textInput;
     private static String inputCommand = "invalid";
@@ -21,6 +26,11 @@ public class Parser {
     private Parser() {
     }
 
+    /**
+     * Cleans and parses the input text to determine the command and its parameters.
+     *
+     * @param text the input text to be parsed
+     */
     public static void cleanText(String text) {
         resetVariables();
         textInput = text;
@@ -50,6 +60,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and validates the 'mark' command.
+     *
+     * @throws MarkParserException if the input does not match the expected format
+     */
     private static void cleanUpMark() throws MarkParserException {
         Pattern pattern = Pattern.compile(Constants.MARK_REGEX);
         Matcher matcher = pattern.matcher(textInput);
@@ -65,6 +80,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and validates the 'unmark' command.
+     *
+     * @throws UnmarkParserException if the input does not match the expected format
+     */
     private static void cleanUpUnmark() throws UnmarkParserException {
         Pattern pattern = Pattern.compile(Constants.UNMARK_REGEX);
         Matcher matcher = pattern.matcher(textInput);
@@ -81,6 +101,11 @@ public class Parser {
     }
 
 
+    /**
+     * Parses and validates the 'todo' command.
+     *
+     * @throws TodoParserException if the input does not match the expected format
+     */
     private static void cleanUpTodo() throws TodoParserException {
         Pattern pattern = Pattern.compile(Constants.TODO_REGEX);
         Matcher matcher = pattern.matcher(textInput);
@@ -92,6 +117,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and validates the 'deadline' command.
+     *
+     * @throws DeadlineParserException if the input does not match the expected format
+     */
     private static void cleanUpDeadline() throws DeadlineParserException {
         Pattern pattern = Pattern.compile(Constants.DEADLINE_REGEX);
         Matcher matcher = pattern.matcher(textInput);
@@ -109,6 +139,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and validates the 'event' command.
+     *
+     * @throws EventParserException if the input does not match the expected format
+     */
     private static void cleanUpEvent() throws EventParserException {
         Pattern pattern = Pattern.compile(Constants.EVENT_REGEX);
         Matcher matcher = pattern.matcher(textInput);
@@ -128,6 +163,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and validates the 'delete' command.
+     *
+     * @throws DeleteParserException if the input does not match the expected format
+     */
     private static void cleanUpDelete() throws DeleteParserException {
         Pattern pattern = Pattern.compile(Constants.DELETE_REGEX);
         Matcher matcher = pattern.matcher(textInput);
@@ -144,6 +184,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and validates the 'find' command.
+     *
+     * @throws FindParserException if the input does not match the expected format
+     */
     private static void cleanUpFind() throws FindParserException {
         Pattern pattern = Pattern.compile(Constants.FIND_REGEX);
         Matcher matcher = pattern.matcher(textInput);
@@ -155,6 +200,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Resets all parser variables to their default values.
+     */
     private static void resetVariables() {
         inputCommand = "invalid";
         taskName = null;
