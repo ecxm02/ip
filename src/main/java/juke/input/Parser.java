@@ -2,18 +2,18 @@ package juke.input;
 
 import juke.exception.*;
 import juke.main.Constants;
+import juke.task.TaskManager;
 
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
     private static String textInput;
     private static String inputCommand = "invalid";
     private static String taskName;
     private static String taskNumber;
-    private static int taskIndex = -1;
-    private static int spaceIndex = -1;
-    private static int slashIndex = -1;
-    private static int slashIndex2 = -1;
+    private static int taskIndex;
     private static LocalDate deadline;
     private static LocalDate from;
     private static LocalDate to;
@@ -25,12 +25,10 @@ public class Parser {
         resetVariables();
         textInput = text;
 
-        spaceIndex = textInput.indexOf(" ");
-        slashIndex = textInput.indexOf("/", spaceIndex + Constants.EMPTY_PAD);
-        slashIndex2 = textInput.indexOf("/", slashIndex + Constants.EMPTY_PAD);
-
-        if (textInput.startsWith("mark") || textInput.startsWith("unmark")) {
+        if (textInput.startsWith("mark")) {
             cleanUpMark();
+        } else if (textInput.startsWith("unmark")) {
+            cleanUpUnmark();
         } else if (textInput.startsWith("todo")) {
             cleanUpTodo();
         } else if (textInput.startsWith("deadline")) {
@@ -51,61 +49,97 @@ public class Parser {
     }
 
     private static void cleanUpMark() throws MarkParserException {
-        String[] words = textInput.split(" ");
-        if (words.length < 2) {
+        Pattern pattern = Pattern.compile(Constants.MARK_REGEX);
+        Matcher matcher = pattern.matcher(textInput);
+        if (matcher.matches()) {
+            taskNumber = matcher.group(1);
+            taskIndex = Integer.parseInt(taskNumber) - 1;
+            if (TaskManager.getSize() <= taskIndex) {
+                throw new TaskIndexOutOfBounds();
+            }
+            inputCommand = "mark";
+        } else {
             throw new MarkParserException();
         }
-        taskNumber = words[1];
-        taskIndex = Integer.parseInt(taskNumber) - 1;
-        inputCommand = words[0];
     }
 
+    private static void cleanUpUnmark() throws UnmarkParserException {
+        Pattern pattern = Pattern.compile(Constants.UNMARK_REGEX);
+        Matcher matcher = pattern.matcher(textInput);
+        if (matcher.matches()) {
+            taskNumber = matcher.group(1);
+            taskIndex = Integer.parseInt(taskNumber) - 1;
+            if (TaskManager.getSize() <= taskIndex) {
+                throw new TaskIndexOutOfBounds();
+            }
+            inputCommand = "unmark";
+        } else {
+            throw new UnmarkParserException();
+        }
+    }
+
+
     private static void cleanUpTodo() throws TodoParserException {
-        if (spaceIndex == -1) {
+        Pattern pattern = Pattern.compile(Constants.TODO_REGEX);
+        Matcher matcher = pattern.matcher(textInput);
+        if (matcher.matches()) {
+            taskName = matcher.group(1);
+            inputCommand = "todo";
+        } else {
             throw new TodoParserException();
         }
-        inputCommand = textInput.substring(0, spaceIndex);
-        taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD);
     }
 
     private static void cleanUpDeadline() throws DeadlineParserException {
-        if (spaceIndex == -1 || slashIndex == -1) {
+        Pattern pattern = Pattern.compile(Constants.DEADLINE_REGEX);
+        Matcher matcher = pattern.matcher(textInput);
+        if (matcher.matches()) {
+            taskName = matcher.group(1);
+            String deadlineString = matcher.group(2);
+            try {
+                deadline = LocalDate.parse(deadlineString);
+                inputCommand = "deadline";
+            } catch (Exception e) {
+                throw new DateParserException();
+            }
+        } else {
             throw new DeadlineParserException();
-        }
-        inputCommand = textInput.substring(0, spaceIndex);
-        taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
-        String deadlineString = textInput.substring(slashIndex + Constants.BY_PAD);
-        try {
-            deadline = LocalDate.parse(deadlineString);
-        } catch (Exception e) {
-            throw new DateParserException();
         }
     }
 
     private static void cleanUpEvent() throws EventParserException {
-        if (spaceIndex == -1 || slashIndex == -1 || slashIndex2 == -1) {
+        Pattern pattern = Pattern.compile(Constants.EVENT_REGEX);
+        Matcher matcher = pattern.matcher(textInput);
+        if (matcher.matches()) {
+            taskName = matcher.group(1);
+            String fromString = matcher.group(2);
+            String toString = matcher.group(3);
+            try {
+                from = LocalDate.parse(fromString);
+                to = LocalDate.parse(toString);
+                inputCommand = "event";
+            } catch (Exception e) {
+                throw new DateParserException();
+            }
+        } else {
             throw new EventParserException();
-        }
-        inputCommand = textInput.substring(0, spaceIndex);
-        taskName = textInput.substring(spaceIndex + Constants.EMPTY_PAD, slashIndex - Constants.EMPTY_PAD);
-        String fromString = textInput.substring(slashIndex + Constants.FROM_PAD, slashIndex2 - Constants.EMPTY_PAD);
-        String toString = textInput.substring(slashIndex2 + Constants.TO_PAD);
-        try {
-            from = LocalDate.parse(fromString);
-            to = LocalDate.parse(toString);
-        } catch (Exception e) {
-            throw new DateParserException();
         }
     }
 
     private static void cleanUpDelete() throws DeleteParserException {
-        String[] words = textInput.split(" ");
-        if (words.length < 2) {
+        Pattern pattern = Pattern.compile(Constants.DELETE_REGEX);
+        Matcher matcher = pattern.matcher(textInput);
+        if (matcher.matches()) {
+            taskName = matcher.group(1);
+            taskNumber = matcher.group(2);
+            taskIndex = Integer.parseInt(taskNumber) - 1;
+            if (TaskManager.getSize() <= taskIndex) {
+                throw new TaskIndexOutOfBounds();
+            }
+            inputCommand = "delete";
+        } else {
             throw new DeleteParserException();
         }
-        taskNumber = words[1];
-        taskIndex = Integer.parseInt(taskNumber) - 1;
-        inputCommand = words[0];
     }
 
     private static void resetVariables() {
@@ -113,9 +147,6 @@ public class Parser {
         taskName = null;
         taskNumber = null;
         taskIndex = -1;
-        spaceIndex = -1;
-        slashIndex = -1;
-        slashIndex2 = -1;
         deadline = null;
         from = null;
         to = null;

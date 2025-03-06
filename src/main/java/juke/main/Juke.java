@@ -1,6 +1,5 @@
 package juke.main;
 
-import juke.exception.ExceptionHandler;
 import juke.input.Ui;
 import juke.storage.FileLoader;
 import juke.task.TaskManager;
@@ -18,12 +17,15 @@ public class Juke {
     }
 
     public static void main(String[] args) {
-        ExceptionHandler.activate();
         FileLoader.loadFile(TaskManager.getTaskList());
         Ui.introMessage();
 
-        while (isRunning) {
-            Ui.readInput();
+        while (Juke.isRunning()) {
+            try {
+                Ui.readInput();
+            } catch (Exception e) {
+                System.out.println(Constants.LINE_BREAK);
+            }
         }
 
         Ui.endProgramMessage();

@@ -110,4 +110,8 @@ public class TaskManager {
         System.out.println("Okay! I've deleted this task");
         System.out.println(taskIndex + 1 + ". " + taskName);
     }
+
+    public static int getSize() {
+        return taskList.size();
+    }
 }

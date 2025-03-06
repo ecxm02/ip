@@ -32,7 +32,7 @@ public class Constants {
             "7. To clear the whole Task List" + System.lineSeparator() +
             "'clear'" + System.lineSeparator();
 
-    public static final String DATE_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your 'by', 'from', 'to' follows this date format"  + System.lineSeparator() +
+    public static final String DATE_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your [by], [from], [to] follows this date format"  + System.lineSeparator() +
             "[YEAR]-[MONTH]-[DATE], Example: 2025-01-31" + System.lineSeparator() +
             "Regardless of single digit months or days, pad with 0 if needed";
 
@@ -48,6 +48,20 @@ public class Constants {
     public static final String DELETE_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your 'delete' command follows this format" + System.lineSeparator() +
             "'delete' + [Task Index]";
 
-    public static final String MARK_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your 'mark/unmark' command follows this format" + System.lineSeparator() +
-            "'mark/unmark' + [Task Index]";
+    public static final String MARK_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your 'mark' command follows this format" + System.lineSeparator() +
+            "'mark' + [Task Index]";
+
+    public static final String UNMARK_PARSER_EXCEPTION = "Syntax Error detected! Ensure that your 'unmark' command follows this format" + System.lineSeparator() +
+            "'unmark' + [Task Index]";
+
+    public static final String TASK_INDEX_OUT_OF_BOUNDS = "Index Error detected! Ensure that your Task Index is exists in your Task List" + System.lineSeparator() +
+            "Type 'list' to view your Task List";
+
+    public static final String MARK_REGEX = "^mark\\s+(\\d+)$";
+    public static final String UNMARK_REGEX = "^unmark\\s+(\\d+)$";
+    public static final String TODO_REGEX = "^todo\\s+(.+)$";
+    public static final String DEADLINE_REGEX = "^deadline\\s+(.+)\\s+/by\\s+(.+)$";
+    public static final String EVENT_REGEX = "event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
+    public static final String DELETE_REGEX = "^delete\\s+(\\d+)$";
+
 }
