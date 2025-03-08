@@ -172,8 +172,7 @@ public class Parser {
         Pattern pattern = Pattern.compile(Constants.DELETE_REGEX);
         Matcher matcher = pattern.matcher(textInput);
         if (matcher.matches()) {
-            taskName = matcher.group(1);
-            taskNumber = matcher.group(2);
+            taskNumber = matcher.group(1);
             taskIndex = Integer.parseInt(taskNumber) - 1;
             if (TaskManager.getSize() <= taskIndex) {
                 throw new TaskIndexOutOfBounds();
