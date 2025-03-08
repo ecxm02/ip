@@ -1,4 +1,4 @@
-# User Guide
+# Juke User Guide
 
 This guide provides an overview of the commands and features available in our todo list assistant, "Juke"
 
